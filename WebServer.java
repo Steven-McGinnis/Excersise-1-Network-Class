@@ -6,7 +6,7 @@ public final class WebServer {
 
   public static void main(String argv[]) throws Exception {
     // Set the port number.
-    int port = 80;
+    int port = 8080;
     // Establish the listen socket.
     ServerSocket listenSocket = new ServerSocket(port);
 
@@ -65,11 +65,11 @@ final class HttpRequest implements Runnable {
     String headerLine = null;
     while ((headerLine = br.readLine()).length() != 0) {
       System.out.println(headerLine);
-
-      // Close streams and socket.
-      os.close();
-      br.close();
-      socket.close();
     }
+
+    // Close streams and socket.
+    os.close();
+    br.close();
+    socket.close();
   }
 }
