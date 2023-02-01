@@ -8,6 +8,7 @@ public final class WebServer {
     // Set the port number.
     int port = 8080;
     // Establish the listen socket.
+    System.out.println(System.getProperty("user.dir"));
     ServerSocket listenSocket = new ServerSocket(port);
 
     // Process HTTP service requests in an infinite loop.
@@ -72,6 +73,7 @@ final class HttpRequest implements Runnable {
     // Open the requested file.
     FileInputStream fis = null;
     boolean fileExists = true;
+    
     try {
       fis = new FileInputStream(fileName);
     } catch (FileNotFoundException e) {
