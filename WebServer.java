@@ -83,10 +83,10 @@ final class HttpRequest implements Runnable {
     String contentTypeLine = null;
     String entityBody = null;
     if (fileExists) {
-      statusLine = "200 OK";
+      statusLine = "http/1.1 200 OK" + CRLF;
       contentTypeLine = "Content-type: " + contentType(fileName) + CRLF;
     } else {
-      statusLine = "404 Not Found";
+      statusLine = "http/1.1 404 Not Found" + CRLF;
       contentTypeLine = "Content-type: text/html" + CRLF;
       entityBody =
         "<HTML>" +
@@ -103,6 +103,13 @@ final class HttpRequest implements Runnable {
     // Send a blank line to indicate the end of the header lines.
     os.writeBytes(CRLF);
 
+    // Send the entity body.
+    if (fileExists)	{
+	    sendBytes(fis, os);
+	      fis.close();
+    } else {
+	    os.writeBytes(entityBody);
+    } 
     // Get and display the header lines.
     String headerLine = null;
     while ((headerLine = br.readLine()).length() != 0) {
